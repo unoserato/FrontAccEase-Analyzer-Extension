@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FrontAccEase Aria Analyzer</title>
+    <style>
+      :root {
+        /* Default Dark Theme Variables */
+        --bg-main: #18181b;
+        --bg-card: #27272a;
+        --bg-code: #09090b;
+        --bg-loader: rgba(9, 9, 11, 0.85);
+        --accent: #3b82f6;
+        --accent-hover: #2563eb;
+        --text-main: #f4f4f5;
+        --text-muted: #a1a1aa;
+        --border: #3f3f46;
+      }
+
+      /* Light Theme Overrides */
+      body.light-mode {
+        --bg-main: #f4f4f5;
+        --bg-card: #ffffff;
+        --bg-code: #ffffff;
+        --bg-loader: rgba(244, 244, 245, 0.85);
+        --accent: #2563eb;
+        --accent-hover: #1d4ed8;
+        --text-main: #18181b;
+        --text-muted: #52525b;
+        --border: #d4d4d8;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+      }
+
+      body {
+        background-color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        width: 780px;
+        height: 550px;
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        transition:
+          background-color 0.2s ease,
+          color 0.2s ease;
+      }
+
+      /* --- Header Layout --- */
+      .main-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Pushes toggle to top right */
+        padding: 14px 20px;
+        background-color: var(--bg-card);
+        border-bottom: 1px solid var(--border);
+        transition:
+          background-color 0.2s ease,
+          border-color 0.2s ease;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .main-header img {
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+      }
+
+      .main-header h1 {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+
+      /* --- Theme Toggle Button --- */
+      .theme-toggle-btn {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-main);
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.15s ease;
+      }
+
+      .theme-toggle-btn:hover {
+        background: var(--border);
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 16px;
+        gap: 12px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* --- Loading Overlay --- */
+      .loader-container {
+        position: absolute;
+        inset: 16px;
+        background: var(--bg-loader);
+        backdrop-filter: blur(4px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        z-index: 10;
+        border-radius: 6px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+      }
+
+      .loader-container.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid var(--border);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+
+      .loader-text {
+        font-size: 14px;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* --- Results Area --- */
+      .results-wrapper {
+        flex: 1;
+        background: var(--bg-code);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        overflow: hidden;
+        display: flex;
+        transition:
+          background-color 0.2s ease,
+          border-color 0.2s ease;
+      }
+
+      .results {
+        flex: 1;
+        padding: 14px;
+        white-space: pre-wrap;
+        font-family: "Consolas", "Fira Code", "Courier New", monospace;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--text-main);
+        overflow-y: auto;
+      }
+
+      /* --- Action Button --- */
+      .analyze-btn {
+        width: 100%;
+        height: 42px;
+        background-color: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background-color 0.15s ease,
+          transform 0.05s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .analyze-btn:hover {
+        background-color: var(--accent-hover);
+      }
+
+      .analyze-btn:active {
+        transform: scale(0.99);
+      }
+
+      .analyze-btn:disabled {
+        background-color: var(--border);
+        color: var(--text-muted);
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .scan-actions {
+        display: flex;
+        gap: 12px;
+      }
+
+      .scan-actions .analyze-btn {
+        flex: 1;
+      }
+
+      .scan-code {
+        color: var(--text-muted);
+        font-size: 13px;
+        text-align: center;
+      }
+
+      .scan-code input {
+        width: 130px;
+        margin-left: 6px;
+        padding: 7px 9px;
+        color: var(--text-main);
+        background: var(--bg-code);
+        border: 1px solid var(--border);
+        border-radius: 5px;
+        color: var(--text-main);
+        font-family: "Consolas", "Fira Code", "Courier New", monospace;
+        letter-spacing: 0.08em;
+      }
+
+      .llm-btn {
+        background-color: #7c3aed;
+      }
+
+      .llm-btn:hover {
+        background-color: #6d28d9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="main-header">
+        <div class="header-left">
+          <img
+            src="favicon.ico"
+            alt="Logo"
+            onerror="this.style.display = 'none'"
+          />
+          <h1>FrontAccEase Aria Analyzer</h1>
+        </div>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="theme-toggle-btn"
+          title="Toggle Theme"
+        >
+          <span id="theme-text">Light</span>
+        </button>
+      </header>
+
+      <main>
+        <div id="loader" class="loader-container">
+          <div class="spinner"></div>
+          <span id="loader-text" class="loader-text"
+            >Fetching DOM structure...</span
+          >
+        </div>
+
+        <div class="results-wrapper">
+          <pre id="results-html" class="results">Choose Fast Scan for a quick check or Use LLM for AI-powered analysis.</pre>
+        </div>
+
+        <div class="scan-actions">
+          <button type="button" class="analyze-btn" data-scan-type="fast">Fast Scan</button>
+          <button type="button" class="analyze-btn llm-btn" data-scan-type="llm">Use LLM</button>
+        </div>
+        <label class="scan-code" for="scan-code-input">
+          Scan code:
+          <input id="scan-code-input" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="123456" aria-describedby="scan-code-help" />
+        </label>
+        <span id="scan-code-help" class="scan-code">Enter the code shown in FrontAccEase.</span>
+      </main>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
