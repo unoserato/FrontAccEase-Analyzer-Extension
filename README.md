@@ -4,6 +4,8 @@ The **FrontAccEase Web Extension** is a browser-based accessibility auditing too
 
 The extension helps learners identify potential web accessibility issues while studying the principles of **POUR: Perceivable, Operable, Understandable, and Robust**.
 
+Visit [FrontAccEase](https://www.frontaccease.com/) to learn more about the platform.
+
 ## Features
 
 - **Web Accessibility Scanning:** Analyze target web pages for potential accessibility issues.
@@ -147,3 +149,6 @@ The web extension complements the platform by allowing learners to evaluate web 
 **FrontAccEase Web Extension**
 
 *Learn accessibility. Evaluate the web. Build more inclusive experiences.*
+
+
+Developed by John Mark Boragay, Riana Bunye, and Uno Ysmael Serato.
