@@ -21,7 +21,6 @@ Download the extension ZIP file from the official FrontAccEase GitHub repository
 
 Extract the ZIP file into a folder on your computer. Keep the extracted files together because the browser loads the extension from this folder.
 
-> **Note:** Replace this section with the actual GitHub repository download link before publishing.
 
 ### 2. Install the Extension
 
@@ -101,26 +100,6 @@ Use the findings to identify areas that may require further investigation or imp
 
 The extension works alongside the FrontAccEase web application.
 
-| Module | Description |
-|---|---|
-| Dashboard | Access the learner dashboard. |
-| Modules | Study accessibility learning materials. |
-| SVG Classroom | Access classroom learning activities. |
-| Chat | Access the platform's chat module. |
-| Analyzer | Generate pairing codes and access accessibility analysis features. |
-
-### Local Development Links
-
-The following links point to a local development server and may only be accessible on the configured network.
-
-- [Dashboard](http://192.168.1.103:5173/learner/dashboard)
-- [Modules](http://192.168.1.103:5173/learner/modules)
-- [SVG Classroom](http://192.168.1.103:5173/learner/classroom)
-- [Chat](http://192.168.1.103:5173/learner/chat)
-- [Analyzer](http://192.168.1.103:5173/learner/analyzer)
-
-Replace these addresses with your deployed application URL before distributing the extension publicly.
-
 ## Troubleshooting
 
 ### The Pairing Code Is Rejected
@@ -164,11 +143,6 @@ FrontAccEase is an accessibility learning and assessment platform intended to he
 
 The web extension complements the platform by allowing learners to evaluate web pages and investigate potential accessibility problems in practice.
 
-## License
-
-Add the project's applicable license here before distributing the extension.
-
----
 
 **FrontAccEase Web Extension**
 
