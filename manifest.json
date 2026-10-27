@@ -1,10 +1,14 @@
 {
   "manifest_version": 3,
   "name": "FrontAccEase",
-  "version": "1.0",
+  "version": "1.2",
   "description": "Send webpage HTML and CSS to FrontAccEase for accessibility analysis.",
   "permissions": ["activeTab", "scripting"],
-  "host_permissions": ["https://8s6nljl6-8000.asse.devtunnels.ms/*", "http://127.0.0.1:8000/*"],
+  "host_permissions": [
+    "https://frontaccease-backend.onrender.com/*",
+    "https://8s6nljl6-8000.asse.devtunnels.ms/*",
+    "http://127.0.0.1:8000/*"
+  ],
   "action": {
     "default_title": "Analyze this page with FrontAccEase",
     "default_popup": "index.html"
