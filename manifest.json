@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "FrontAccEase",
-  "version": "1.2",
+  "version": "1.0",
   "description": "Send webpage HTML and CSS to FrontAccEase for accessibility analysis.",
   "icons": {
     "16": "icons/icon-16.png",
